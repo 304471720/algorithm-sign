@@ -106,12 +106,16 @@ public class ECTest {
     }
 
     public static void test1() throws BadPaddingException, NoSuchPaddingException, NoSuchAlgorithmException, IOException, IllegalBlockSizeException, NoSuchProviderException, InvalidKeyException, InvalidKeySpecException {
-        String text = "tetst";
+        String text = "";
+        for (int i = 0; i < 1024; i++) {
+            text += "This is a test!@#$This is a test!@#$This is a test!@#This is a test!@#$This is a test!@#$This is a test!@#This is a test!@#$This is a test!@#$This is a test!@#";
+        }
         ECPublicKey publicKey = getPublicKey();
         ECPrivateKey privateKey = getPrivateKey();
         String enc = encrypt(publicKey,text);
-        System.out.println(enc);
-        System.out.println(decrypt(privateKey,enc));
+        System.out.println(" before encrypt : " +text);
+        System.out.println(" after encrypt : " +enc);
+        System.out.println(" after decrypt : "+ decrypt(privateKey,enc));
     }
 
     public static void test() throws Exception {
