@@ -112,10 +112,17 @@ public class ECTest {
         }
         ECPublicKey publicKey = getPublicKey();
         ECPrivateKey privateKey = getPrivateKey();
-        String enc = encrypt(publicKey,text);
-        System.out.println(" before encrypt : " +text);
-        System.out.println(" after encrypt : " +enc);
-        System.out.println(" after decrypt : "+ decrypt(privateKey,enc));
+        long begin = System.currentTimeMillis();
+        for (int j=0;j<1000;j++)
+        {
+            String enc = encrypt(publicKey,text);
+            decrypt(privateKey,enc);
+           /* System.out.println(" before encrypt : " +text);
+            System.out.println(" after encrypt : " +enc);
+            System.out.println(" after decrypt : "+ decrypt(privateKey,enc));*/
+        }
+        long end = System.currentTimeMillis();
+        System.out.println(" avg time "+(end-begin)/1000+" ms ");
     }
 
     public static void test() throws Exception {
