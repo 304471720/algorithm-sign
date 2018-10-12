@@ -105,8 +105,9 @@ public class ECDH_BC_SECP256K1
         System.out.println("Alice Prv: " + bytesToHex(dataPrvA));
         System.out.println("Alice Pub: " + bytesToHex(dataPubA));
         //This pubkey from openssl
-        String dataC = "021debb5ca31ad676a24ea8580fd42f6fcd10eb46680b78f5474a61791b513dc0e";
-        System.out.println("Bob Pub: " + dataC);
-        doECDH("Alice's secret: ", dataPrvA, Numeric.hexStringToByteArray(dataC));
+        String BobPub = "02193a0a0b659a22e17db2085030de8869cd22e4cc623b6448536986f1098df925";
+        String BobPri = "02193a0a0b659a22e17db2085030de8869cd22e4cc623b6448536986f1098df925";
+        System.out.println("Bob Pub: " + BobPub);
+        doECDH("Alice's secret: ", dataPrvA, Numeric.hexStringToByteArray(BobPub));
     }
 }
