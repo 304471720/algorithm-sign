@@ -12,6 +12,8 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.io.FileUtils;
 import org.bouncycastle.jce.interfaces.ECPrivateKey;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
@@ -102,7 +104,14 @@ public class ECTest {
     }
 
     public static void main(String[] argu) throws Exception {
-        test1();
+        //test1();
+        ECPublicKey publicKey = getPublicKey();
+        ECPrivateKey privateKey = getPrivateKey();
+        String responseText = "  response...  ";
+        String sign = getSignature(privateKey,responseText);
+        System.out.println("sign "+sign);
+        System.out.println(" verify : "+ verifySignature(publicKey,responseText,sign));
+
     }
 
     public static void test1() throws BadPaddingException, NoSuchPaddingException, NoSuchAlgorithmException, IOException, IllegalBlockSizeException, NoSuchProviderException, InvalidKeyException, InvalidKeySpecException {
@@ -112,17 +121,50 @@ public class ECTest {
         }
         ECPublicKey publicKey = getPublicKey();
         ECPrivateKey privateKey = getPrivateKey();
+        String enc = encrypt(publicKey,text);
         long begin = System.currentTimeMillis();
-        for (int j=0;j<10;j++)
+        for (int j=0;j<1000;j++)
         {
-            String enc = encrypt(publicKey,text);
             decrypt(privateKey,enc);
-            System.out.println(" before encrypt : " +text);
+            /*System.out.println(" before encrypt : " +text);
             System.out.println(" after encrypt : " +enc);
-            System.out.println(" after decrypt : "+ decrypt(privateKey,enc));
+            System.out.println(" after decrypt : "+ decrypt(privateKey,enc));*/
         }
         long end = System.currentTimeMillis();
-        System.out.println(" avg time "+(end-begin)/10+" ms ");
+        System.out.println(" avg time "+(end-begin)/1000+" ms ");
+    }
+
+    /**
+     * 私钥签名
+     * @param ecPrivateKey
+     * @param text
+     * @return
+     */
+    public static String getSignature(ECPrivateKey ecPrivateKey,String text) throws InvalidKeyException, NoSuchAlgorithmException, SignatureException {
+        Signature signature = Signature.getInstance("SHA1withECDSA");
+        signature.initSign(ecPrivateKey);
+        signature.update(text.getBytes());
+        byte[] res = signature.sign();
+        System.out.println("签名：" + Hex.encodeHexString(res));
+        return Hex.encodeHexString(res);
+    }
+
+    /**
+     * 公钥验证
+     * @param ecPublicKey
+     * @param text
+     * @param sign
+     * @return
+     * @throws DecoderException
+     * @throws SignatureException
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeyException
+     */
+    public static boolean verifySignature(ECPublicKey ecPublicKey,String text,String sign) throws DecoderException, SignatureException, NoSuchAlgorithmException, InvalidKeyException {
+        Signature signature = Signature.getInstance("SHA1withECDSA");
+        signature.initVerify(ecPublicKey);
+        signature.update(text.getBytes());
+        return  signature.verify(Hex.decodeHex(sign));
     }
 
     public static void test() throws Exception {
