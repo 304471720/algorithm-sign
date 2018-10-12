@@ -112,6 +112,7 @@ public class Client {
             System.out.println("Shared Secret:");
             System.out.println("X: " + SharedSecret.getAffineX());
             System.out.println("Y: " + SharedSecret.getAffineY());
+
         } else {
             System.out.println("La chiave pubblica ricevuta è invalida!");
         }
