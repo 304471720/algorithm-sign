@@ -108,21 +108,21 @@ public class ECTest {
     public static void test1() throws BadPaddingException, NoSuchPaddingException, NoSuchAlgorithmException, IOException, IllegalBlockSizeException, NoSuchProviderException, InvalidKeyException, InvalidKeySpecException {
         String text = "";
         for (int i = 0; i < 1024; i++) {
-            text += "This is a test!@#$This is a test!@#$This is a test!@#This is a test!@#$This is a test!@#$This is a test!@#This is a test!@#$This is a test!@#$This is a test!@#";
+            text += "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx ";
         }
         ECPublicKey publicKey = getPublicKey();
         ECPrivateKey privateKey = getPrivateKey();
         long begin = System.currentTimeMillis();
-        for (int j=0;j<1000;j++)
+        for (int j=0;j<10;j++)
         {
             String enc = encrypt(publicKey,text);
             decrypt(privateKey,enc);
-           /* System.out.println(" before encrypt : " +text);
+            System.out.println(" before encrypt : " +text);
             System.out.println(" after encrypt : " +enc);
-            System.out.println(" after decrypt : "+ decrypt(privateKey,enc));*/
+            System.out.println(" after decrypt : "+ decrypt(privateKey,enc));
         }
         long end = System.currentTimeMillis();
-        System.out.println(" avg time "+(end-begin)/1000+" ms ");
+        System.out.println(" avg time "+(end-begin)/10+" ms ");
     }
 
     public static void test() throws Exception {
