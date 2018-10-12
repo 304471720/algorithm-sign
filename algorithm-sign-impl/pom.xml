@@ -7,8 +7,20 @@
 
 	<name>algorithm-sign</name>
 	<url>http://maven.apache.org</url>
+    <dependencies>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
+	</dependencies>
 
-	<parent>
+    <parent>
 		<groupId>com.lhx.algorithm</groupId>
 		<artifactId>algorithm-sign</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
