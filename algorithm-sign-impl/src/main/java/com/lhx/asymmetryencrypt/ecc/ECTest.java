@@ -31,7 +31,7 @@ public class ECTest {
     }
     private static void genKeyPair() throws Exception {
 
-        /** RSA算法要求有一个可信任的随机数源 */
+        /** 算法要求有一个可信任的随机数源 */
         SecureRandom secureRandom = new SecureRandom();
 
         /** 为RSA算法创建一个KeyPairGenerator对象 */
