@@ -34,7 +34,7 @@ public class ECTest {
         /** 算法要求有一个可信任的随机数源 */
         SecureRandom secureRandom = new SecureRandom();
 
-        /** 为RSA算法创建一个KeyPairGenerator对象 */
+        /** 为算法创建一个KeyPairGenerator对象 */
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("EC","BC");
 
         /** 利用随机数据源初始化这个KeyPairGenerator对象 */
